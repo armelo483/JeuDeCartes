@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <h2>Voici votre main de 10 cartes, veuillez les trier selon vos préférences</h2>
+
+    {# your_template.html.twig #}
+
+    {{ form_start(form, {'attr': {'id': 'orderForm'}}) }}
+    <div class="form-check">
+        <input class="form-check-input ordre_carte" type="radio" name="{{ field_name(form.sortingOption) }}" id="colorAndValueSorted" value="colorAndValueSorted"{{ form.sortingOption.vars.value == 'colorAndValueSorted' ? ' checked' : '' }}>
+        <label class="form-check-label" for="colorAndValueSorted">
+            Trier par ordre de couleur puis par valeur
+        </label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input ordre_carte" type="radio" name="{{ field_name(form.sortingOption) }}" id="colorSorted" value="colorSorted"{{ field_value(form.sortingOption) == 'colorSorted' ? ' checked' : '' }}>
+        <label class="form-check-label" for="colorSorted">
+            Trier par ordre de couleur
+        </label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input ordre_carte" type="radio" name="{{ field_name(form.sortingOption) }}" id="valueSorted" value="valueSorted"{{ field_value(form.sortingOption)  == 'valueSorted' ? ' checked' : '' }}>
+        <label class="form-check-label" for="valueSorted">
+            Trier par ordre de valeur
+        </label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input ordre_carte" type="radio" name="{{ field_name(form.sortingOption) }}" id="initial" value="initial"{{ field_value(form.sortingOption) == 'initial' ? ' checked' : '' }}>
+        <label class="form-check-label" for="initial">
+            Pas de tri (Ordre aléatoire)
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2" id="submitBtn">Valider mon tri</button>
+
+
+    {{ form_end(form) }}
+
+
+
+    <div class="card_collection row mt-2">
+        {% for card in cardsList %}
+            <div class="card mt-2" style="width: 18rem;margin-right: 8px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ card.value }}</h5>
+                    <p class="card-text">{{ card.color }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
